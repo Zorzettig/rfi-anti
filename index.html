@@ -29,7 +29,10 @@
             <div id="tratta-attiva" class="small-note">---</div>
             
             <div class="gps-stats" style="flex-direction: column; gap: 10px;">
-                <div>📡 Precisione: <span id="gps-accuracy" class="shimmer">Ricerca...</span></div>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding-right: 10px;">
+                    <span>📡 Precisione: <span id="gps-accuracy" class="shimmer">Ricerca...</span></span>
+                    <span>💨 Vel: <span id="gps-speed" style="font-weight: bold; color: var(--text-color);">--</span> km/h</span>
+                </div>
                 
                 <label class="checkbox-container" style="font-size: 13px; margin-bottom: 0;">
                     <input type="checkbox" id="toggle-coords" onchange="toggleCordinate()"> Mostra coordinate GPS

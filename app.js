@@ -646,11 +646,20 @@ window.aggiornaVisualizzazione = aggiornaVisualizzazione;
 
 function updateLocation(pos) {
     ultimaPosizioneGps = pos; 
-    const { latitude, longitude, accuracy } = pos.coords;
+    const { latitude, longitude, accuracy, speed } = pos.coords;
     
     if (accuracy) {
         let color = accuracy <= 20 ? '#28a745' : (accuracy <= 60 ? '#ffc107' : '#dc3545');
         displayAccuracy.innerHTML = `<span style="color: ${color}; font-weight: bold;">±${accuracy.toFixed(0)} m</span>`;
+    }
+    
+    const displaySpeed = document.getElementById('gps-speed');
+    if (displaySpeed) {
+        if (speed !== null && speed >= 0) {
+            displaySpeed.innerText = (speed * 3.6).toFixed(0);
+        } else {
+            displaySpeed.innerText = "--";
+        }
     }
     
     if (displayCoords) {
