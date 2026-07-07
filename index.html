@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Progressiva Chilometrica RFI - Live</title>
+    
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#F2F2F7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+    <link rel="apple-touch-icon" href="icon-192.png" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.fullscreen@3.0.2/Control.FullScreen.css" />
+    
+    <!-- Link al CSS modulare con stile Premium -->
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="container">
+        <div class="header-container">
+            <h1>📍 Navigatore RFI</h1>
+            <button class="theme-btn" onclick="toggleTema()" title="Cambia Tema">🌙</button>
+        </div>
+
+        <div class="info-box">
+            <div id="stazione-vicina">Calcolo posizione...</div>
+            <div id="km-attuale" class="km-label-main">---</div>
+            <div id="tratta-attiva" class="small-note">---</div>
+            
+            <div class="gps-stats" style="flex-direction: column; gap: 10px;">
+                <div>📡 Precisione: <span id="gps-accuracy" class="shimmer">Ricerca...</span></div>
+                
+                <label class="checkbox-container" style="font-size: 13px; margin-bottom: 0;">
+                    <input type="checkbox" id="toggle-coords" onchange="toggleCordinate()"> Mostra coordinate GPS
+                </label>
+                
+                <div id="gps-coords-display" style="display: none; font-size: 13px; font-family: monospace; color: var(--note-color); background: var(--panel-bg); padding: 10px; border-radius: 8px; border: 1px solid var(--border-color);">
+                    Lat: --- <br> Lon: ---
+                </div>
+            </div>
+        </div>
+
+        <div id="map"></div>
+
+        <button class="btn-gps" onclick="forzaPosizione()">📍 Centra la mia Posizione</button>
+
+        <div class="options-panel">
+            <div class="options-section">
+                <div class="options-title">⚙️ Impostazioni Navigazione</div>
+                <label class="checkbox-container"><input type="checkbox" id="toggle-autocenter" checked> Seguimi automaticamente (GPS)</label>
+                <label class="checkbox-container"><input type="checkbox" id="toggle-cippi" checked onchange="aggiornaVisualizzazione()"> Mostra cippi chilometrici (Zoom &ge; 12)</label>
+                <label class="checkbox-container"><input type="checkbox" id="toggle-stazioni" checked onchange="aggiornaVisualizzazione()"> Mostra stazioni ferroviarie</label>
+                <label class="checkbox-container"><input type="checkbox" id="toggle-bg" onchange="toggleBackground(this)"> Nascondi mappa stradale</label>
+            </div>
+
+            <div class="options-section">
+                <div class="options-title">🛤️ Tratte Disponibili</div>
+                <div id="toggles-tratte">
+                    <div style="text-align: center; color: var(--note-color); font-style: italic;" class="shimmer">Caricamento dati RFI in corso...</div>
+                </div>
+            </div>
+
+            <button class="btn-gps btn-clear-cache" onclick="svuotaCacheRFI()">🔄 Riscarica dati RFI (Svuota Cache)</button>
+        </div>
+
+        <div class="admin-footer">
+            <div id="status" class="small-note" style="flex-grow: 1;">Inizializzazione...</div>
+            <button class="btn-admin-inline" onclick="richiediCodiceAdmin()" title="Area Tecnica">⚙️</button>
+        </div>
+    </div>
+
+    <!-- Modale Login Admin -->
+    <div id="admin-login-modal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 350px;">
+            <button class="close-btn" onclick="chiudiAdminLogin()">✕</button>
+            <div class="admin-login-box">
+                <h2 class="modal-title">Area Tecnica</h2>
+                <p style="color: var(--note-color); margin-bottom: 20px; font-size: 14px;">Inserisci il codice di sblocco per visualizzare i capisaldi di calibrazione.</p>
+                <input type="password" id="admin-pin-input" maxlength="4" placeholder="••••" />
+                <button class="btn-gps" onclick="confermaAdminPin()">Sblocca</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modale Tabelle Admin -->
+    <div id="admin-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-btn" onclick="chiudiAdmin()">✕</button>
+            <h2 class="modal-title">🛠️ Dati di Calibrazione</h2>
+            
+            <div class="modal-tabs">
+                <button class="modal-tab active" id="btn-tab-km" onclick="switchTabAdmin('km')">Capisaldi (Km)</button>
+                <button class="modal-tab" id="btn-tab-gps" onclick="switchTabAdmin('gps')">Coordinate (GPS)</button>
+            </div>
+
+            <div id="tab-km"></div>
+            <div id="tab-gps" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.fullscreen@3.0.2/Control.FullScreen.js"></script>
+    
+    <!-- Moduli Dati e Logica Applicativa -->
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

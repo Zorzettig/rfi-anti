@@ -1,0 +1,528 @@
+/* =========================================================================
+   1. VARIABILI DI TEMA (CHIARO / SCURO - STILE APPLE PREMIUM)
+   ========================================================================= */
+:root {
+    --bg-color: #F2F2F7;
+    --container-bg: rgba(255, 255, 255, 0.85);
+    --text-color: #1C1C1E;
+    --primary-color: #007AFF;
+    --primary-color-hover: #0056b3;
+    --info-bg: rgba(245, 245, 249, 0.9);
+    --panel-bg: rgba(255, 255, 255, 0.9);
+    --border-color: rgba(60, 60, 67, 0.12);
+    --note-color: #8E8E93;
+    --toggle-bg: #E5E5EA;
+    --toggle-on: #34C759;
+    --shadow-color: rgba(0, 0, 0, 0.08);
+    --glass-blur: blur(12px);
+}
+
+body.dark-mode {
+    --bg-color: #000000;
+    --container-bg: rgba(28, 28, 30, 0.85);
+    --text-color: #F2F2F7;
+    --primary-color: #0A84FF;
+    --primary-color-hover: #409cff;
+    --info-bg: rgba(44, 44, 46, 0.9);
+    --panel-bg: rgba(28, 28, 30, 0.9);
+    --border-color: rgba(84, 84, 88, 0.65);
+    --note-color: #EBEBF5;
+    --toggle-bg: #39393D;
+    --toggle-on: #30D158;
+    --shadow-color: rgba(0, 0, 0, 0.4);
+}
+
+/* =========================================================================
+   2. STILI LAYOUT PRINCIPALE & ANIMAZIONI
+   ========================================================================= */
+body { 
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background-color 0.4s ease, color 0.4s ease;
+    -webkit-font-smoothing: antialiased;
+}
+
+.container { 
+    background: var(--container-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    padding: 24px;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px var(--shadow-color), inset 0 1px 0 rgba(255,255,255,0.2);
+    width: 100%;
+    max-width: 700px;
+    text-align: center;
+    box-sizing: border-box;
+    transition: background-color 0.4s ease, box-shadow 0.4s ease;
+    animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.header-container { 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+h1 { 
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--text-color);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.theme-btn { 
+    background: var(--info-bg);
+    border: none;
+    color: var(--text-color);
+    font-size: 18px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 14px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 6px var(--shadow-color);
+}
+
+.theme-btn:active { 
+    transform: scale(0.92);
+}
+.theme-btn:hover {
+    background: var(--border-color);
+}
+
+/* =========================================================================
+   3. BOX INFORMAZIONI E CONTROLLI
+   ========================================================================= */
+.info-box { 
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: var(--info-bg);
+    border-radius: 16px;
+    text-align: left;
+    transition: 0.4s ease;
+    border: 1px solid var(--border-color);
+}
+
+.km-label-main { 
+    font-size: 38px;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    color: var(--primary-color);
+    margin-top: 8px;
+    text-align: center;
+    text-shadow: 0 2px 10px rgba(0, 122, 255, 0.15);
+}
+
+#map { 
+    height: 450px;
+    width: 100%;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    z-index: 1;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.leaflet-container { 
+    background: #e9ecef !important;
+}
+
+.btn-gps { 
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 16px;
+    font-size: 16px;
+    border-radius: 14px;
+    margin-top: 20px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0, 122, 255, 0.3);
+}
+body.dark-mode .btn-gps {
+    box-shadow: 0 8px 20px rgba(10, 132, 255, 0.25);
+}
+
+.btn-gps:hover {
+    background-color: var(--primary-color-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(0, 122, 255, 0.4);
+}
+
+.btn-gps:active { 
+    transform: scale(0.98) translateY(0);
+    box-shadow: 0 4px 12px rgba(0, 122, 255, 0.2);
+}
+
+.btn-clear-cache { 
+    background-color: var(--info-bg);
+    color: var(--primary-color);
+    margin-top: 15px;
+    font-size: 15px;
+    padding: 14px;
+    box-shadow: none;
+    border: 1px solid var(--border-color);
+}
+
+.btn-clear-cache:hover { 
+    background-color: var(--border-color);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* =========================================================================
+   4. PANNELLO OPZIONI E CHECKBOX STILE iOS
+   ========================================================================= */
+.options-panel { 
+    margin-top: 20px;
+    background: var(--panel-bg);
+    padding: 0;
+    border-radius: 16px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.options-section { 
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: var(--info-bg);
+    padding: 16px;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+}
+
+.options-title { 
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--note-color);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 5px;
+    padding-left: 5px;
+}
+
+.checkbox-container { 
+    font-size: 15px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    color: var(--text-color);
+    margin-bottom: 2px;
+    padding: 4px 0;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+.checkbox-container:hover {
+    background-color: rgba(100, 100, 100, 0.05);
+}
+
+.checkbox-container input[type="checkbox"] { 
+    appearance: none;
+    -webkit-appearance: none;
+    width: 44px;
+    height: 24px;
+    background-color: var(--toggle-bg);
+    border-radius: 24px;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s ease;
+    flex-shrink: 0;
+}
+
+.checkbox-container input[type="checkbox"]::after { 
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background-color: #FFFFFF;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.checkbox-container input[type="checkbox"]:checked { 
+    background-color: var(--toggle-on);
+}
+
+.checkbox-container input[type="checkbox"]:checked::after { 
+    transform: translateX(20px);
+}
+
+/* =========================================================================
+   5. DETTAGLI DELLA MAPPA E STATO
+   ========================================================================= */
+.km-icon { 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+                         
+.km-icon div { 
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 1px solid var(--border-color);
+    color: #1C1C1E; /* Manteniamo testo scuro sui cippi per leggibilità sulla mappa */
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    white-space: nowrap;
+}
+
+.small-note { 
+    font-size: 13px;
+    color: var(--note-color);
+    margin-top: 5px;
+}
+
+.gps-stats { 
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border-color);
+    font-size: 14px;
+    color: var(--note-color);
+    font-weight: 500;
+}
+
+#status { 
+    font-weight: 600;
+    color: var(--primary-color);
+    display: inline-block;
+    text-align: left;
+    width: 100%;
+}
+
+.admin-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border-color);
+}
+
+.btn-admin-inline {
+    background-color: transparent;
+    border: none;
+    color: var(--note-color);
+    font-size: 26px;
+    cursor: pointer;
+    transition: transform 0.3s ease, color 0.3s ease;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-admin-inline:active {
+    transform: scale(0.85) rotate(45deg);
+}
+.btn-admin-inline:hover {
+    color: var(--text-color);
+}
+
+/* =========================================================================
+   6. MODALI (ADMIN LOGIN E TABELLE)
+   ========================================================================= */
+.modal-overlay {
+    display: none; 
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.show {
+    opacity: 1;
+}
+
+.modal-content {
+    background: var(--container-bg);
+    width: 90%;
+    max-width: 600px;
+    max-height: 85vh;
+    border-radius: 20px;
+    padding: 24px;
+    overflow-y: auto;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    position: relative;
+    text-align: left;
+    transform: translateY(30px) scale(0.95);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+}
+
+.modal-overlay.show .modal-content {
+    transform: translateY(0) scale(1);
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--toggle-bg);
+    border: none;
+    border-radius: 50%;
+    width: 32px; height: 32px;
+    cursor: pointer;
+    color: var(--text-color);
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s;
+}
+.close-btn:hover {
+    background: var(--border-color);
+}
+
+/* Modale Login Admin */
+.admin-login-box {
+    text-align: center;
+    padding: 20px 0;
+}
+.admin-login-box h2 {
+    margin-top: 0;
+}
+.admin-login-box input {
+    font-size: 24px;
+    padding: 10px;
+    width: 150px;
+    text-align: center;
+    letter-spacing: 5px;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--panel-bg);
+    color: var(--text-color);
+    outline: none;
+    transition: border-color 0.3s;
+}
+.admin-login-box input:focus {
+    border-color: var(--primary-color);
+}
+.admin-login-box button {
+    margin-top: 20px;
+}
+
+/* Tab Admin */
+.modal-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    background: var(--info-bg);
+    padding: 6px;
+    border-radius: 12px;
+}
+
+.modal-tab {
+    flex: 1;
+    padding: 10px 12px;
+    border: none;
+    background: transparent;
+    color: var(--note-color);
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.modal-tab.active {
+    background: var(--container-bg);
+    color: var(--text-color);
+    box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.capisaldi-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-bottom: 24px;
+    font-size: 14px;
+}
+
+.capisaldi-table th, .capisaldi-table td {
+    border-bottom: 1px solid var(--border-color);
+    padding: 12px 8px;
+}
+
+.capisaldi-table th {
+    color: var(--primary-color);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.modal-title {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 20px;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+/* =========================================================================
+   7. LOADER / TOAST MESSAGES
+   ========================================================================= */
+.toast-error {
+    background-color: #ff3b30;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 15px rgba(255, 59, 48, 0.3);
+    animation: slideDown 0.3s ease-out;
+}
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.shimmer {
+    background: linear-gradient(90deg, var(--info-bg) 25%, var(--border-color) 50%, var(--info-bg) 75%);
+    background-size: 200% 100%;
+    animation: shimmerAnim 2s infinite linear;
+    border-radius: 8px;
+    color: transparent;
+}
+@keyframes shimmerAnim {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
