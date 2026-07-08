@@ -577,16 +577,13 @@ async function scaricaDatiRFI() {
 /* =========================================================================
    6. INIT MAPPA E AGGIORNAMENTO GPS
    ========================================================================= */
-map = L.map('map', { 
-    fullscreenControl: true, 
-    fullscreenControlOptions: { position: 'topleft' }, 
-    rotate: true, 
+map = L.map('map', {
+    fullscreenControl: true,
+    fullscreenControlOptions: { position: 'topleft' },
+    rotate: true,
     touchRotate: true,
-    shiftRotate: true,
-    rotateControl: {
-        closeOnZeroBearing: false,
-        position: 'topleft'
-    },
+    // rotateControl disabled to remove compass arrow
+    rotateControl: false,
     bearing: 0
 }).setView([46.1, 13.1], 9);
 mainLayerGroup.addTo(map);
