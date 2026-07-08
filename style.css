@@ -135,6 +135,7 @@ h1 {
     border: 1px solid var(--border-color);
     z-index: 1;
     box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    touch-action: none;
 }
 
 .leaflet-container { 
