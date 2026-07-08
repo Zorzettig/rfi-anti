@@ -615,12 +615,12 @@ function aggiornaVisualizzazione() {
         let pts = [];
         for(let i=0; i<t.punti.length; i++) {
             if (i > 0 && Math.abs(t.punti[i].km - t.punti[i-1].km) > 20) {
-                L.polyline(pts, {color: t.coloreLinea, weight: 4}).addTo(mainLayerGroup);
+                L.polyline(pts, {color: t.coloreLinea, weight: 4, smoothFactor: 0, noClip: true}).addTo(mainLayerGroup);
                 pts = [];
             }
             pts.push([t.punti[i].lat, t.punti[i].lon]);
         }
-        L.polyline(pts, {color: t.coloreLinea, weight: 4}).addTo(mainLayerGroup);
+        L.polyline(pts, {color: t.coloreLinea, weight: 4, smoothFactor: 0, noClip: true}).addTo(mainLayerGroup);
         
         if (cippi && zoomAttuale >= 12) {
             t.punti.forEach((p, i) => {
