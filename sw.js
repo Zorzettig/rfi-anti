@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nav-rfi-cache-v2';
+const CACHE_NAME = 'nav-rfi-cache-v3';
 const urlsToCache = [
   './index.html',
   './style.css',
@@ -8,7 +8,8 @@ const urlsToCache = [
   'https://unpkg.com/leaflet/dist/leaflet.css',
   'https://unpkg.com/leaflet.fullscreen@3.0.2/Control.FullScreen.css',
   'https://unpkg.com/leaflet/dist/leaflet.js',
-  'https://unpkg.com/leaflet.fullscreen@3.0.2/Control.FullScreen.js'
+  'https://unpkg.com/leaflet.fullscreen@3.0.2/Control.FullScreen.js',
+  'https://unpkg.com/leaflet-rotate@0.2.8/dist/leaflet-rotate-src.js'
 ];
 
 // Installa il Service Worker e salva in cache i file strutturali

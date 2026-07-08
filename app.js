@@ -577,7 +577,7 @@ async function scaricaDatiRFI() {
 /* =========================================================================
    6. INIT MAPPA E AGGIORNAMENTO GPS
    ========================================================================= */
-map = L.map('map', { fullscreenControl: true, fullscreenControlOptions: { position: 'topright' } }).setView([46.1, 13.1], 9);
+map = L.map('map', { fullscreenControl: true, fullscreenControlOptions: { position: 'topright' }, rotate: true, touchRotate: true }).setView([46.1, 13.1], 9);
 mainLayerGroup.addTo(map);
 osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OSM' }).addTo(map);
 map.on('zoomend', aggiornaVisualizzazione);
@@ -756,6 +756,13 @@ function forzaPosizione() {
     navigator.geolocation.getCurrentPosition(updateLocation, handleGpsError, { enableHighAccuracy: true });
 }
 window.forzaPosizione = forzaPosizione;
+
+window.resetNord = () => {
+    if (map && map.setBearing) {
+        map.setBearing(0);
+        showToast("Mappa orientata a Nord");
+    }
+};
 
 /* =========================================================================
    7. WAKE LOCK

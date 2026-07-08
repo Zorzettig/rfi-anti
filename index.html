@@ -45,9 +45,10 @@
         </div>
 
         <div id="map"></div>
-
-        <button class="btn-gps" onclick="forzaPosizione()">📍 Centra la mia Posizione</button>
-
+        <div style="display: flex; gap: 10px;">
+            <button class="btn-gps" onclick="forzaPosizione()" style="flex: 1; padding: 14px 10px;">📍 Centra Posizione</button>
+            <button class="btn-gps" onclick="resetNord()" style="flex: 1; padding: 14px 10px; background-color: #34c759;">🧭 Nord</button>
+        </div>
         <div class="options-panel">
             <div class="options-section">
                 <div class="options-title">⚙️ Impostazioni Navigazione</div>
@@ -104,6 +105,7 @@
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet.fullscreen@3.0.2/Control.FullScreen.js"></script>
+    <script src="https://unpkg.com/leaflet-rotate@0.2.8/dist/leaflet-rotate-src.js"></script>
     
     <!-- Moduli Dati e Logica Applicativa -->
     <script src="data.js"></script>
